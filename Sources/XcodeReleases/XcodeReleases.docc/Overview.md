@@ -9,7 +9,7 @@ A Swift package for interacting with Xcode release data
 ```swift
 let allReleases = try await URLSession.shared.data(from: XcodeReleases.allXcodesJSON)
                                 .map(\.data)
-                                .flatMap { try JSONDecoder().decode(XcodeReleases.self, from: $0) }
+                                .map { try JSONDecoder().decode(XcodeReleases.self, from: $0) }
 ```
 
 The resulting ``XcodeReleases`` struct contains the list of ``Xcode`` values for your app to consume. An ``Xcode`` value contains information about its version number, release date, release kind (beta, release candidate, etc), and possibly information on its embedded SDKs and compilers. It may also have associated ``Link`` values with information on its direct download location, release notes, and so on.
