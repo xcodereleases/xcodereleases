@@ -37,4 +37,18 @@ public struct Version: Codable, Equatable, Hashable {
         self.number = number
         self.build = build
     }
+    
+    /// Create a ``Version`` with a human-readable version number
+    /// - Parameter number: The human-readable version number
+    public init(number: String) {
+        self.number = number
+        self.build = nil
+    }
+    
+    /// Create a ``Version`` with a machine-readable version value
+    /// - Parameter build: The machine-readable version value
+    public init(build: String) {
+        self.number = nil
+        self.build = build
+    }
 }
