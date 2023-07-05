@@ -93,9 +93,15 @@ extension Xcode: Codable {
         try container.encode(self.releaseKind, forKey: .releaseKind)
         try container.encode(self.releaseDate, forKey: .releaseDate)
         try container.encode(self.supportedOSRange, forKey: .supportedOSRange)
-        try container.encodeIfPresent(self.sdks, forKey: .sdks)
-        try container.encodeIfPresent(self.compilers, forKey: .compilers)
-        try container.encodeIfPresent(self.links, forKey: .links)
+        if let sdks = self.sdks, sdks.count > 0 {
+            try container.encodeIfPresent(sdks, forKey: .sdks)
+        }
+        if let compilers = self.compilers, compilers.count > 0 {
+            try container.encodeIfPresent(compilers, forKey: .compilers)
+        }
+        if let links = self.links, links.count > 0 {
+            try container.encodeIfPresent(links, forKey: .links)
+        }
         if self.isCurrent {
             try container.encode(self.isCurrent, forKey: .isCurrent)
         }
