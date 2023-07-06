@@ -4,10 +4,10 @@ import Foundation
 public struct XcodeReleases: Codable {
     
     /// The `URL` to retrieve all known ``Xcode`` releases
-    public static let allXcodesJSON: URL = URL(string: "https://xcodereleases.com/api/all.json")!
+    public static let allXcodesJSON: URL = URL(string: "https://xcodereleases.com/api/1/all.json")!
     
     /// The `URL` to retrieve all known publicly-released ``Xcode`` releases
-    public static let releasedXcodesJSON: URL = URL(string: "https://xcodereleases.com/api/released.json")!
+    public static let releasedXcodesJSON: URL = URL(string: "https://xcodereleases.com/api/1/released.json")!
     
     /// The list of ``Xcode`` values
     public var xcodes: [Xcode]
