@@ -5,17 +5,17 @@ import Foundation
 /// Interpreting this value should always be done using a Gregorian calendar in the `America/Los_Angeles` timezone. If your usage also requires a time of day, use 10:00 AM local time.
 public struct ReleaseDate: Codable, Equatable, Hashable {
     
-    /// The year value of the date
+    /// The Gregorian year value of the date
     ///
     /// - Warning: This value is not checked for calendrical correctness.
     public var year: Int
     
-    /// The month value of the date (1-12)
+    /// The Gregorian month value of the date (1-12)
     ///
     /// - Warning: This value is not checked for calendrical correctness.
     public var month: Int
     
-    /// The day value of the date (1-31)
+    /// The Gregorian day value of the date (1-31)
     ///
     /// - Warning: This value is not checked for calendrical correctness.
     public var day: Int

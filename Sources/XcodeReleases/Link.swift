@@ -9,6 +9,11 @@ public struct Link: Codable, Equatable, Hashable {
     /// The location of the resource associated with this link
     public var url: URL
     
+    /// The platforms supported by this link, if applicable.
+    ///
+    /// This value is not present for non-executable links.
+    public var architectures: [Architecture]?
+    
     /// They size (in bytes) of the resource, if available
     public var sizeInBytes: Int?
     
@@ -24,11 +29,13 @@ public struct Link: Codable, Equatable, Hashable {
     /// Create a new Link
     /// - Parameters:
     ///   - url: The location of this link's resource
+    ///   - architectures: The architectures supported by this link
     ///   - sizeInBytes: The size in bytes of the resource
     ///   - checksums: Checksums for this link
     ///   - kind: The kind of resource this link represents
-    public init(url: URL, sizeInBytes: Int?, checksums: [Checksum: String]?, kind: LinkKind) {
+    public init(url: URL, architectures: [Architecture]?, sizeInBytes: Int?, checksums: [Checksum: String]?, kind: LinkKind) {
         self.url = url
+        self.architectures = architectures
         self.sizeInBytes = sizeInBytes
         self.checksums = checksums
         self.kind = kind
@@ -36,6 +43,7 @@ public struct Link: Codable, Equatable, Hashable {
     
     private enum CodingKeys: CodingKey {
         case url
+        case architectures
         case sizeInBytes
         case checksums
         case kind
@@ -47,6 +55,7 @@ public struct Link: Codable, Equatable, Hashable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.url = try container.decode(URL.self, forKey: .url)
+        self.architectures = try container.decodeIfPresent([Architecture].self, forKey: .architectures)
         self.sizeInBytes = try container.decodeIfPresent(Int.self, forKey: .sizeInBytes)
         self.kind = try container.decode(LinkKind.self, forKey: .kind)
         
@@ -64,6 +73,7 @@ public struct Link: Codable, Equatable, Hashable {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(self.url, forKey: .url)
+        try container.encodeIfPresent(self.architectures, forKey: .architectures)
         try container.encodeIfPresent(self.sizeInBytes, forKey: .sizeInBytes)
         try container.encode(self.kind, forKey: .kind)
         
